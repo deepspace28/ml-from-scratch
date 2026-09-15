@@ -32,6 +32,23 @@ Understanding backpropagation, embeddings, and attention from scratch.
 .venv/Scripts/python makemore/03_transformer.py
 ```
 
-## Phase 2 — Real Text Generation (coming)
+## Phase 2 — Real Text Generation
+
+Character-level GPT (nanoGPT recipe) trained from scratch on the complete works of Shakespeare.
+
+| Script | What it does |
+|--------|--------------|
+| `nanoGPT/prepare.py` | Tokenize `shakespeare.txt` into `train.bin` / `val.bin` |
+| `nanoGPT/model.py` | Decoder-only transformer: CausalSelfAttention, Block, GPT |
+| `nanoGPT/train.py` | Training loop with AdamW, LR warmup + cosine decay, gradient clipping |
+| `nanoGPT/generate.py` | Sample from the trained checkpoint (`--prompt`, `--temperature`, `--top-k`) |
+
+### Run
+
+```bash
+.venv/Scripts/python nanoGPT/prepare.py
+.venv/Scripts/python nanoGPT/train.py     # CUDA if available, CPU otherwise
+.venv/Scripts/python nanoGPT/generate.py --prompt "HAMLET:"
+```
 
 ## Phase 3 — Daily Use Case (coming)
