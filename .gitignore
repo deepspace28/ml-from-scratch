@@ -8,3 +8,6 @@ __pycache__/
 *.pt
 *.pth
 *.ckpt
+
+data/*.bin
+
