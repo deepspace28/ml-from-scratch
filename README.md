@@ -10,7 +10,7 @@ py -3.11 -m venv .venv
 .venv/Scripts/pip install numpy matplotlib jupyter
 ```
 
-## Phase 1 — Foundations
+## Phase 1 â€” Foundations
 
 Understanding backpropagation, embeddings, and attention from scratch.
 
@@ -32,7 +32,7 @@ Understanding backpropagation, embeddings, and attention from scratch.
 .venv/Scripts/python makemore/03_transformer.py
 ```
 
-## Phase 2 — Real Text Generation
+## Phase 2 â€” Real Text Generation
 
 Character-level GPT (nanoGPT recipe) trained from scratch on the complete works of Shakespeare.
 
@@ -51,4 +51,16 @@ Character-level GPT (nanoGPT recipe) trained from scratch on the complete works 
 .venv/Scripts/python nanoGPT/generate.py --prompt "HAMLET:"
 ```
 
-## Phase 3 — Daily Use Case (coming)
+## Phase 3 - Tokenizers
+
+Real tokenizers, like GPT-2's, without the regex pre-split rule.
+
+| Script | What it teaches |
+|--------|----------------|
+| `tokenizers/bpe.py` | Byte-pair encoding: train merges, encode/decode, compression ratio |
+
+### Run
+
+```bash
+.venv/Scripts/python tokenizers/bpe.py --corpus makemore/names.txt --vocab-size 280
+```
