@@ -64,3 +64,16 @@ Real tokenizers, like GPT-2's, without the regex pre-split rule.
 ```bash
 .venv/Scripts/python tokenizers/bpe.py --corpus makemore/names.txt --vocab-size 280
 ```
+
+## Tests
+
+Fast, torch-free checks for the pieces that don't need a GPU:
+
+```bash
+py -3.11 -m pytest tests/ -q
+```
+
+Covers the scalar autograd engine (every derivative verified against finite
+differences), the MLP (backward reachability + a gradient step reducing loss),
+and the BPE tokenizer (train/encode/decode round-trips incl. multi-byte UTF-8).
+Runs on CI via .github/workflows/tests.yml.

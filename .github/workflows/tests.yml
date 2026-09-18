@@ -1,0 +1,23 @@
+name: tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # torch-free subset: micrograd engine/nn and the BPE tokenizer run
+      # on the stdlib alone, so CI stays fast and dependency-free.
+      - run: python -m pytest tests/ -q
+        env:
+          PYTHONPATH: ${{ github.workspace }}/micrograd:${{ github.workspace }}/tokenizers
