@@ -83,6 +83,18 @@ class TestBackward(unittest.TestCase):
         val.log().backward()
         self.assertAlmostEqual(val.grad, _grad_of(lambda v: v.log(), 3.0), places=4)
 
+    def test_sigmoid_matches_finite_diff(self):
+        val = self._fresh(0.8)
+        val.sigmoid().backward()
+        self.assertAlmostEqual(
+            val.grad, _grad_of(lambda v: v.sigmoid(), 0.8), places=4
+        )
+
+    def test_sigmoid_forward_extremes(self):
+        self.assertAlmostEqual(Value(0.0).sigmoid().data, 0.5, places=6)
+        self.assertGreater(Value(50.0).sigmoid().data, 0.9999)
+        self.assertLess(Value(-50.0).sigmoid().data, 0.0001)
+
     def test_neg_pow_matches_finite_diff(self):
         val = self._fresh(4.0)
         (val**-1).backward()

@@ -38,6 +38,21 @@ class TestMLP(unittest.TestCase):
         out = mlp([0.5, -0.5, 1.0])
         self.assertIsInstance(out, Value)
 
+    def test_output_activation_options(self):
+        random.seed(7)
+        x = [0.5, -0.5]
+
+        linear = MLP(2, [4, 1], output_activation='linear')
+        linear.layers[-1].neurons[0].b.data = 0.0
+        out = linear(x)
+        self.assertIsInstance(out, Value)
+        self.assertLess(abs(out.data), math.tanh(1.0) + 1e-6,
+                        "linear head must not squash through tanh")
+
+        sigmoid = MLP(2, [4, 1], output_activation='sigmoid')
+        self.assertEqual(sigmoid.layers[-1].neurons[0].activation, 'sigmoid')
+        self.assertTrue(0.0 <= sigmoid(x).data <= 1.0)
+
     def test_backward_fills_all_grads(self):
         mlp = MLP(2, [3, 1])
         out = mlp([0.5, -1.0])

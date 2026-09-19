@@ -10,7 +10,7 @@ py -3.11 -m venv .venv
 .venv/Scripts/pip install numpy matplotlib jupyter
 ```
 
-## Phase 1 â€” Foundations
+## Phase 1 — Foundations
 
 Understanding backpropagation, embeddings, and attention from scratch.
 
@@ -32,7 +32,7 @@ Understanding backpropagation, embeddings, and attention from scratch.
 .venv/Scripts/python makemore/03_transformer.py
 ```
 
-## Phase 2 â€” Real Text Generation
+## Phase 2 — Real Text Generation
 
 Character-level GPT (nanoGPT recipe) trained from scratch on the complete works of Shakespeare.
 

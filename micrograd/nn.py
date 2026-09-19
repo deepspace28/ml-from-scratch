@@ -21,6 +21,8 @@ class Neuron:
             return act.tanh()
         elif self.activation == 'relu':
             return act.relu()
+        elif self.activation == 'sigmoid':
+            return act.sigmoid()
         return act  # linear
 
     def parameters(self):
@@ -46,13 +48,17 @@ class Layer:
 
 
 class MLP:
-    """Multi-layer perceptron: stack of layers."""
-    def __init__(self, n_inputs, layer_sizes):
+    """Multi-layer perceptron: stack of layers.
+
+    Hidden layers use tanh. The output layer defaults to tanh too, but
+    pass output_activation='linear' for regression (unbounded targets)
+    or 'sigmoid' for binary classification (logistic output).
+    """
+    def __init__(self, n_inputs, layer_sizes, output_activation='tanh'):
         sizes = [n_inputs] + layer_sizes
-        # last layer is linear (regression) or tanh (hidden layers)
         self.layers = [
             Layer(sizes[i], sizes[i+1],
-                  activation='tanh' if i < len(layer_sizes)-1 else 'tanh')
+                  activation='tanh' if i < len(layer_sizes)-1 else output_activation)
             for i in range(len(layer_sizes))
         ]
 
