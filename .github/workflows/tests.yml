@@ -16,9 +16,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      # torch-free subset: micrograd engine/nn and the BPE tokenizer run
-      # on the stdlib alone, so CI stays fast and dependency-free.
-      - run: python -m pip install pytest
-      - run: python -m pytest tests/ -q
+      # torch-free subset: micrograd engine/nn, the BPE tokenizer, and the
+      # classical ML models run on the stdlib + nothing (knn/tree use numpy,
+      # which is pulled in below), so CI stays fast.
+      - run: python -m pip install pytest numpy
+      - run: python -m pytest tests/ classical/ -q
         env:
-          PYTHONPATH: ${{ github.workspace }}/micrograd:${{ github.workspace }}/tokenizers
+          PYTHONPATH: ${{ github.workspace }}/micrograd:${{ github.workspace }}/tokenizers:${{ github.workspace }}/classical
