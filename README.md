@@ -64,3 +64,21 @@ Real tokenizers, like GPT-2's, without the regex pre-split rule.
 ```bash
 .venv/Scripts/python tokenizers/bpe.py --corpus makemore/names.txt --vocab-size 280
 ```
+
+## Phase 4 - Classical ML
+
+No gradients, no backprop - the pre-neural-network toolkit, still worth knowing the internals of.
+
+| Script | What it teaches |
+|--------|----------------|
+| `classical/knn.py` | k-Nearest Neighbors: lazy learning, distance + majority vote |
+| `classical/decision_tree.py` | CART: Gini impurity, greedy splits, recursion with stopping rules |
+| `classical/demo.py` | Both on a two-blob problem + train/val split, side by side |
+| `classical/test_classical.py` | pytest suite for both models |
+
+### Run
+
+```bash
+.venv/Scripts/python classical/demo.py
+.venv/Scripts/python -m pytest classical/test_classical.py
+```
