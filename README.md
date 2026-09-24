@@ -82,3 +82,17 @@ No gradients, no backprop - the pre-neural-network toolkit, still worth knowing 
 .venv/Scripts/python classical/demo.py
 .venv/Scripts/python -m pytest classical/test_classical.py
 ```
+
+## Tests
+
+Fast, torch-free checks for the pieces that don't need a GPU:
+
+```bash
+py -3.11 -m pytest tests/ classical/ -q
+```
+
+Covers the scalar autograd engine (every derivative verified against finite
+differences), the MLP (backward reachability + a gradient step reducing loss),
+the BPE tokenizer (train/encode/decode round-trips incl. multi-byte UTF-8),
+and the classical ML models (kNN + decision tree). Runs on CI via
+.github/workflows/tests.yml.
